@@ -1,4 +1,4 @@
-name: pipeline GithubCI
+name: Pipeline GithubCI
 
 on:
   push:
@@ -10,10 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Building with Maven
-        run: mvn compile --file ../../pom.xml
+        run: mvn compile --file pom.xml
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Testing
-        run: mvn test --file ../../pom.xml
+        run: mvn test --file pom.xml
