@@ -10,9 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: mvn -B package --file pom.xml
+      - name: Building with Maven
+        run: mvn compile
   test:
     runs-on: ubuntu-latest
     steps:
-      - needs: [build]
-      - run: mvn test
+      - name: Testing
+        run: mvn test
