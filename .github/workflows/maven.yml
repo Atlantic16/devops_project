@@ -8,11 +8,11 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     steps:
-      - name: Building the project
       - run: mvn -B package --file pom.xml
-  test: 
+  test:
+    runs-on: ubuntu-latest
     steps:
-      - needs: ["build"]
-      - name: Testing
+      - needs: [build]
       - run: mvn test
