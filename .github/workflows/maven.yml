@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Building with Maven
-        run: mvn compile
+        run: mvn compile --file ../../pom.xml
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Testing
-        run: mvn test
+        run: mvn test --file ../../pom.xml
