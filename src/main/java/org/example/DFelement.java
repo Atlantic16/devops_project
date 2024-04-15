@@ -1,30 +1,31 @@
 package org.example;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public class DFelement {
-    private Map<String, Object> col;
-    private String key;
+    private String label;
+    private Object value;
 
-    public DFelement(String key, Object value){
+    public DFelement(String label, Object value){
         //accept only object array data type
         if(!value.getClass().isArray() || value.getClass().getComponentType().isPrimitive())
             throw new IllegalArgumentException("Primitive type are not allowed");
 
-        col = new LinkedHashMap<>();
-        col.put(key, value);
-        this.key = key;
+        this.value = value;
+        this.label = label;
     }
 
-    public String getKey(){
-        return key;
+    public String getLabel(){
+        return label;
     }
 
     public Object getValue(){
-        return col.get(key);
+        return value;
     }
 
+    public void setKey(String label){
+        this.label = label;
+    }
 
-
+    public void setValue(Object value){
+        this.value = value;
+    }
 }
