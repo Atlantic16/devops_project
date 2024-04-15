@@ -13,7 +13,7 @@ jobs:
       - name: Repo checkout
         uses: actions/checkout@v4
       - name: Building with Maven
-        run: mvn -B compile --file pom.xml
+        run: mvn -B --quiet package
 
   test:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - name: Repo checkout
         uses: actions/checkout@v4
       - name: Testing
-        run: mvn -B test --file pom.xml
+        run: mvn -B --quiet test
   
   deploy:
     runs-on: ubuntu-latest
