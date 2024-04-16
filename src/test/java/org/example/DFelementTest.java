@@ -13,15 +13,19 @@ public class DFelementTest {
     private DFelement integer;
     private DFelement str;
     private DFelement array;
+    private Integer[] integers = {1};
+    private String[] strings = {"Hello"};
     @Before
     public void setUp(){
-        integer = new DFelement("Integer", 3);
-        str = new DFelement("String", "hello element");
+        integer = new DFelement("Integer", integers);
+        str = new DFelement("String", strings);
     }
 
     @Test(expected= IllegalArgumentException.class)
     public void constructorTest(){
-        array = new DFelement("Array", List.of(1,2,3));
+        DFelement element = new DFelement("Label", 3);
+        array = new DFelement("Key", new Integer[]{1,2});
+        assertNotNull(array);
         assertNotNull(integer);
         assertNotNull(str);
     }
@@ -36,24 +40,24 @@ public class DFelementTest {
 
     @Test
     public void getValueTest(){
-        Object expected = 3;
-        Object expectedStrValue = "hello";
+        Integer[] expected = integers;
+        String[] expectedStrValue = strings;
         assertEquals(expected,integer.getValue());
         assertEquals(expectedStrValue, str.getValue());
         assertNotEquals(7, integer.getValue());
     }
 
     @Test
-    public void setLabelTest(){
+    public void setKeyTest(){
         String expected = "int";
-        integer.setLabel(expected);
+        integer.setKey(expected);
         assertEquals(expected, integer.getLabel());
     }
 
     @Test
     public void setValueTest(){
-        Object expected = 7;
-        Object notExpected = 8;
+        Integer[] expected = {7};
+        Integer[] notExpected = {8,2};
         integer.setValue(expected);
         assertEquals(expected, integer.getValue());
         assertNotEquals(notExpected, integer.getValue());
