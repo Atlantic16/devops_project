@@ -12,7 +12,9 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 
 public class DataFrame {
-    List<DFelement> map;
+    private List<DFelement> map;
+    private int rowGLen; //to hold the longest row's size
+
 
     /**
      * Constructor that take a DFelement array an populate the DataFrame with it.
@@ -20,10 +22,13 @@ public class DataFrame {
      */
     public DataFrame(DFelement[] element){
         map = new ArrayList<>();
+        rowGLen = 0;
 
         for(DFelement e: element){
-            if(e != null)
+            if(e != null){
                 add(e);
+                rowGLen = rowGLen < e.getSize() ? e.getSize(): rowGLen;
+            }
         }
     }
 
@@ -89,16 +94,45 @@ public class DataFrame {
         return res;
     }
 
+    private Object getRow(int index){
+        List<Object> elements = new ArrayList<>();
+        for(DFelement e: map){
+            elements.add(e.geti(index));
+        }
+
+        return elements.toArray();
+    }
+
+    private Object getRowRev(int index){
+        List<Object> elements = new ArrayList<>();
+        int longestSize = 0;
+
+        for(DFelement e: map){//fetching the longest size
+            longestSize = e.getSize() > longestSize ? e.getSize() : longestSize;
+        }
+
+        index = longestSize - 1; //index get the last index of the largerst row
+        for(DFelement e: map){ 
+            elements.add(e.geti(index));
+        }
+
+        return elements.toArray();
+    }
+
     /**
      * Auxiliary function, works with show() function
      * @param elem
      */
-    public void print(DFelement elem){
+    private void print(DFelement elem){
         String label = elem.getLabel();
         Object value = elem.getValue();
         
         System.out.print(label);
         System.out.println(Arrays.toString((Object[]) value));
+    }
+
+    private void printRow(Object row){
+        System.out.println(Arrays.toString((Object[]) row));
     }
 
     /**
@@ -117,8 +151,8 @@ public class DataFrame {
      * @param n the number of rows to print 
      */
     public void head(int n){
-        for(int i = 0; i < n && i < map.size(); i++){
-            print(map.get(i));
+        for(int i = 0; i < n && i < map.size(); i++){   
+            printRow(getRow(i));
         }
     }
 
@@ -127,10 +161,8 @@ public class DataFrame {
      * @param n the number of rows to print
      */
     public void tail(int n){
-        if(map.size() == 0) return;
-        n = map.size() - n;
-        for(int i = map.size() - 1; i >= n && i >= 0; i--){
-            print(map.get(i));
+        for(int i = 0; i < n && i < map.size(); i++){   
+            printRow(getRowRev(i));
         }
     }
 }
