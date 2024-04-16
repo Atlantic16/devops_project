@@ -122,4 +122,15 @@ public class DataFrame {
         }
     }
 
+    /**
+     * shows the last n rows
+     * @param n the number of rows to print
+     */
+    public void tail(int n){
+        if(map.size() == 0) return;
+        n = map.size() - n;
+        for(int i = map.size() - 1; i >= n && i >= 0; i--){
+            print(map.get(i));
+        }
+    }
 }
