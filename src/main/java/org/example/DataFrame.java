@@ -74,8 +74,8 @@ public class DataFrame {
 
     /**
      * Return the object of the key key, and drop it.
-     * @param label
-     * @return Object
+     * @param label 
+     * @return res
      */
     public Object pop(String label){
         Object res = null;
@@ -92,7 +92,6 @@ public class DataFrame {
     /**
      * Auxiliary function, works with show() function
      * @param elem
-     * @return void
      */
     public void print(DFelement elem){
         String label = elem.getLabel();
@@ -105,7 +104,6 @@ public class DataFrame {
     /**
      * Show DataFrame's elements
      * @param void
-     * @return void
      */
     public void show(){
         if(map.size() == 0) return;
@@ -113,4 +111,15 @@ public class DataFrame {
             print(elem);
         }
     }
+
+    /**
+     * Shows the first n rows
+     * @param n the number of rows to print 
+     */
+    public void head(int n){
+        for(int i = 0; i < n && i < map.size(); i++){
+            print(map.get(i));
+        }
+    }
+
 }
