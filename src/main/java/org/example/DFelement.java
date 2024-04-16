@@ -1,8 +1,9 @@
 package org.example;
 
-public class DFelement {
+public class DFelement implements Cloneable{
     private String label;
     private Object value;
+    private int size;
 
     public DFelement(String label, Object value){
         //accept only object array data type
@@ -11,6 +12,7 @@ public class DFelement {
 
         this.value = value;
         this.label = label;
+        this.size = ((Object[]) value).length;
     }
 
     public String getLabel(){
@@ -21,11 +23,19 @@ public class DFelement {
         return value;
     }
 
+    public int getSize(){
+        return size;
+    }
+
     public void setKey(String label){
         this.label = label;
     }
 
     public void setValue(Object value){
         this.value = value;
+    }
+
+    public Object geti(int index){
+        return index < size && index >= 0 ? ((Object[])value)[index] : null;
     }
 }
