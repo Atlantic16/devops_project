@@ -1,6 +1,6 @@
 package org.example;
 
-public class DFelement implements Cloneable{
+public class DFelement{
     private String label;
     private Object value;
     private int size;

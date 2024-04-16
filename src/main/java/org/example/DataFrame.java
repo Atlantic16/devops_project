@@ -13,7 +13,6 @@ import org.apache.commons.csv.CSVParser;
 
 public class DataFrame {
     private List<DFelement> map;
-    private int rowGLen; //to hold the longest row's size
 
 
     /**
@@ -22,12 +21,10 @@ public class DataFrame {
      */
     public DataFrame(DFelement[] element){
         map = new ArrayList<>();
-        rowGLen = 0;
 
         for(DFelement e: element){
             if(e != null){
                 add(e);
-                rowGLen = rowGLen < e.getSize() ? e.getSize(): rowGLen;
             }
         }
     }
@@ -115,8 +112,26 @@ public class DataFrame {
         for(DFelement e: map){ 
             elements.add(e.geti(index));
         }
-
         return elements.toArray();
+    }
+
+    private Object getColumn(String label){
+        for(DFelement e: map){
+            if(e.getLabel().equals(label)){
+                return e.getValue();
+            }
+        }
+        return null;
+    }
+
+    private String getColType(Object obj){
+        if(obj instanceof Integer[])
+            return "Integer";
+            
+        else if(obj instanceof Double[])
+            return "Double";
+
+        return null;
     }
 
     /**
@@ -164,5 +179,29 @@ public class DataFrame {
         for(int i = 0; i < n && i < map.size(); i++){   
             printRow(getRowRev(i));
         }
+    }
+
+    /**
+     * Calculate the mean of values of a given column
+     * </br>
+     * The method is implemented only for Double and Integer data types
+     * @param label label of the column to extract
+     * @return the mean value of column:label
+     */
+    public double mean(String label){
+        double m = 0;
+        Object[] obj = (Object[])getColumn(label);
+        String type = getColType(obj);
+
+        if(type.equals("Integer")){
+            for(int i = 0; i < obj.length; i++)
+                m += Double.valueOf((Integer)obj[i]);
+        }
+        else if(type.equals("Double")){
+            for(int i = 0; i < obj.length; i++)
+                m += (Double)obj[i];
+        }
+
+        return m / obj.length;
     }
 }
