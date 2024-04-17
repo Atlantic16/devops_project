@@ -14,6 +14,13 @@ import org.apache.commons.csv.CSVParser;
 public class DataFrame {
     private List<DFelement> map;
 
+    /**
+     * Empty constructor DataFrame
+     */
+    public DataFrame(){
+        map = new ArrayList<>();
+    }
+
 
     /**
      * Constructor that take a DFelement array an populate the DataFrame with it.
@@ -48,20 +55,37 @@ public class DataFrame {
 
         //get all records
         List<CSVRecord> records = parser.getRecords();
-        String label;
+        String label, type;
         List<Object> elems;
         Iterator<?> it;
 
         for(CSVRecord record: records){ //iterate over each record
             it = record.iterator();
             label = it.next().toString();
+            type = it.next().toString();
             elems = new ArrayList<>();
-            while(it.hasNext()) //iterate over each element of a record
-                elems.add(it.next());
+            switch (type){
+                case "String": 
+                    while(it.hasNext()){ //iterate over each element of a record{
+                        elems.add(it.next());
+                    }
+                break;
+
+                case "Integer": 
+                    while(it.hasNext()){ //iterate over each element of a record{
+                        elems.add(Integer.parseInt(it.next().toString()));
+                    }
+                break;
+
+                case "Double":
+                    while(it.hasNext()){ //iterate over each element of a record{
+                        elems.add(Double.parseDouble(it.next().toString()));
+                    }
+            }
+             
             DFelement elem = new DFelement(label, elems.toArray()); //create an object DFelement
             map.add(elem);
         }
-
     }
     
     /**
@@ -125,13 +149,13 @@ public class DataFrame {
     }
 
     private String getColType(Object obj){
-        if(obj instanceof Integer[])
+        if(obj instanceof Integer[] || obj instanceof Integer)
             return "Integer";
             
-        else if(obj instanceof Double[])
+        else if(obj instanceof Double[] || obj instanceof Double)
             return "Double";
 
-        return null;
+        return "String";
     }
 
     /**
@@ -142,6 +166,7 @@ public class DataFrame {
         String label = elem.getLabel();
         Object value = elem.getValue();
         
+        System.out.println(elem.geti(0).getClass());
         System.out.print(label);
         System.out.println(Arrays.toString((Object[]) value));
     }
@@ -205,13 +230,13 @@ public class DataFrame {
     }
 
     /**
-     * Return the min of a column with label @label
+     * Return the min of a column with label @label.
      * @param label label of the column to extract
-     * @return return the minimum value
+     * @return return the minimum value of type integer
      */
-    public int min(String label){
+    public int minInt(String label){
         Object[] obj = (Object[])getColumn(label);
-        String type = getColType(obj);
+        String type = getColType(obj[0]);
         int min = 0;
 
         if(type.equals("Integer")){
@@ -227,11 +252,11 @@ public class DataFrame {
     /**
      * Return the max of a column with label @label
      * @param label label of the column to extract
-     * @return return the maximum value
+     * @return return the maximum value of type integer
      */
-    public int max(String label){
+    public int maxInt(String label){
         Object[] obj = (Object[])getColumn(label);
-        String type = getColType(obj);
+        String type = getColType(obj[0]);
         int max = 0;
 
         if(type.equals("Integer")){
@@ -242,5 +267,85 @@ public class DataFrame {
         }
 
         return max;
+    }
+
+    /**
+     * Return the max of a column with label @label
+     * @param label label of the column to extract
+     * @return return the minimum value of type double
+     */
+    public double minDouble(String label){
+        Object[] obj = (Object[])getColumn(label);
+        String type = getColType(obj[0]);
+        double min = 0.0;
+
+        if(type.equals("Double")){
+           min = (Double)obj[0];
+           for(int i = 0; i < obj.length; i++){
+                if(min > (Double)obj[i]) min = (Double)obj[i];
+           }
+        }
+
+        return min;
+    }
+
+    /**
+     * Return the max of a column with label @label
+     * @param label label of the column to extract
+     * @return return the maximum value of type double
+     */
+    public double maxDouble(String label){
+        Object[] obj = (Object[])getColumn(label);
+        String type = getColType(obj[0]);
+        double max = 0;
+
+        if(type.equals("Double")){
+           max = (Double)obj[0];
+           for(int i = 0; i < obj.length; i++){
+                if(max < (Double)obj[i]) max = (Double)obj[i];
+           }
+        }
+
+        return max;
+    }
+
+    /**
+     * Function that return a subset of a DataFrame (column based)
+     * @param labels labels of columns
+     * @return new DataFrame
+     */
+    public DataFrame getColumnSubset(String[] labels){
+        DataFrame df = new DataFrame();
+
+        for(String s: labels){
+            for(DFelement e:map){
+                if(e.getLabel().equals(s)){
+                    df.add(e.clone());
+                }
+            }
+        }
+
+        return df;
+    }
+
+    /**
+     * Create and return a new DataFrame with selected items based on rows
+     * @param indices array of selected indices
+     * @return a new DataFrame
+     */
+    public DataFrame getRowSubset(int[] indices){
+        DataFrame df = new DataFrame();
+        List<Object> elements;
+
+        for(DFelement e: map){
+            elements = new ArrayList<>();
+            for(int i: indices){
+                elements.add(e.geti(i)); //Adding selected items
+            }
+            DFelement dfel = new DFelement(e.getLabel(), elements.toArray());
+            df.add(dfel);
+        }
+        
+        return df;
     }
 }
