@@ -170,6 +170,7 @@ public class DataFrame {
         String label = elem.getLabel();
         Object value = elem.getValue();
         
+        System.out. println(elem.geti(0).getClass());
         System.out.print(label);
         System.out.println(Arrays.toString((Object[]) value));
     }
