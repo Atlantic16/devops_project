@@ -40,5 +40,3 @@ Nous avons configuré deux pipelines distinctes utilisant GitHub CI/CD Actions p
 
 1. Pipeline pour la branche master (maven.yaml) : Activée à chaque push ou pull request sur la branche master pour garantir la stabilité du code avant la fusion.
 2. Pipeline pour la branche feature-DataFrame (feature.yaml): Déclenchée à chaque push sur la branche feature-DataFrame pour valider spécifiquement les modifications faites et les testés.
-
-## Docker [OPTIONAL]:
