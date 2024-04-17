@@ -219,7 +219,7 @@ public class DataFrame {
     public double mean(String label){
         double m = 0;
         Object[] obj = (Object[])getColumn(label);
-        String type = getColType(obj);
+        String type = getColType(obj[0]);
 
         if(type.equals("Integer")){
             for(int i = 0; i < obj.length; i++)
