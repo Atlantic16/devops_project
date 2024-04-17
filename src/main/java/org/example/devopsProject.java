@@ -2,13 +2,23 @@ package org.example;
 
 public class devopsProject 
 {
+    public static void print(String s){
+        System.out.println("\n");
+        System.out.println(s);
+        System.out.println("===========================");
+    }
+
     public static void main( String[] args )
     {
-        //DataFrame df = new DataFrame("data/data.csv");
-        DFelement[] d = new DFelement[1];
-        d[0] = new DFelement("a", new Integer[]{1, 2});
-        DataFrame df = new DataFrame(d);
-        System.out.println(df.mean("a"));
+        print("=======DataFrame Demonstration (Using a csv )=======");
+        print("*DataFrame creation");
+        DataFrame df = new DataFrame("data/data.csv");
+        print("*Show DataFrame");
+        df.show();
+        print("*Show the first 2 columns");
+        df.head(2);
+        print("*Show the last 2 columns");
+        df.tail(3);
 
     }
 }
