@@ -15,7 +15,7 @@ jobs:
       - name: Building with Maven
         run: mvn -B --quiet package
       - name: Build Docker
-        run: docker build . -f Dockerfile.build -t dbuild
+        run: docker build . -f Dockerfile.build -t build
 
   test:
     runs-on: ubuntu-latest
