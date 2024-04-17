@@ -14,6 +14,10 @@ import org.apache.commons.csv.CSVParser;
 public class DataFrame {
     private List<DFelement> map;
 
+    public List<DFelement> getMap(){
+        return map;
+    }
+
     /**
      * Empty constructor DataFrame
      */
