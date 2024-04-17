@@ -15,7 +15,11 @@ jobs:
       - name: Building with Maven
         run: mvn -B --quiet package
       - name: Build Docker
-        run: docker build . -f Dockerfile.build -t build
+        run: docker build . -f Dockerfile.build -t atlantic0/build:latest
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PWD }}" | docker login -u "${{secrets.DOCKER_USERNAME}}" --password-stdin
+      - name: Push Docker image
+        run: docker push atlantic0/build:latest
 
   test:
     runs-on: ubuntu-latest
