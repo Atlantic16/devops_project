@@ -62,4 +62,13 @@ public class DFelementTest {
         assertEquals(expected, integer.getValue());
         assertNotEquals(notExpected, integer.getValue());
     }
+
+    @Test
+    public void getiTest(){
+        DFelement elem = new DFelement("Element", new Integer[]{1,2,3});
+        assertEquals(1, (int) elem.geti(0));
+        assertEquals(3, (int) elem.geti(2));
+        assertEquals("Hello",str.geti(0));
+        assertNull(elem.geti(4));
+    }
 }
