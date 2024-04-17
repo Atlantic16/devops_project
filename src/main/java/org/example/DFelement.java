@@ -35,7 +35,20 @@ public class DFelement{
         this.value = value;
     }
 
+    /**
+     * Get the element of index @index
+     * @param index index of the element to extract
+     * @return object of index "index"
+     */
     public Object geti(int index){
         return index < size && index >= 0 ? ((Object[])value)[index] : null;
+    }
+
+    /**
+     * Clone the currente element
+     * @return return the cloned element
+     */
+    public DFelement clone(){
+        return new DFelement(label, value);
     }
 }
