@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <title>DataFrame</title>
+</head>
+
+<body>
+    <h1>Psdeudo DataFrame bibliothèque avec java</h1>
+    <h2>Fonctionnalités Principales</h2>
+    <h3>Les fonctionnalités principales de notre bibliothèque sont les suivants:</h3>
+    <ol>
+        <li><b>Création d'un Dataframe à partir d'une liste d'elements, ou à partir d'un fichier du type CSV suivant le format : </b></li>
+            `Label,Type,value1,value2...`. On s'assure de la cohérence sur le type donnée stocké dans chaque colonne. 
+        </li>
+        <li>
+            <b>Affichage d'un Dataframe avec trois fonctions d'affichage differentes:</b>
+            <ul>
+                <li>Afficher tout le dataframe avec `show()`</li>
+                <li>Afficher n première lignes du dataframe à l'aide de la fonction `head(int n)`</li>
+                <li>Afficher n dernière lignes du dataframe à l'aide de la fonction `tail(int n)`</li>
+            </ul>
+        </li>
+        <li>
+            <b>Sélection d'un dataframe avec deux modes differents: par colonnes ou par lignes.</b>
+        </li>
+        <li>
+            <b>Statistiques sur un dataframe:</b>
+                <ul>
+                    <li>Calcul du maximum d'une colonne</li>
+                    <li>Calcul du minimun d'une colonne</li>
+                    <li>Calcul de la moyenne d'une colonne</li>
+                </ul>
+        </li>
+    </ol>
+    <br>
+    <h2>Choix d’outils:</h2>
+    <ul>
+        <li>GitHub</li>
+        <li>Git</li>
+        <li>Maven</li>
+        <li>Jacoco (Code coverage)</li>
+        <li>Github CI/CD Actions</li>
+        <li>Docker</li>
+    </ul>
+    <br>
+    <h2>Workflow Git et procédure de Pull/Merge requests:</h2>
+
+    <h3>Le workflow adapté pour ce projet utilise Git. Nous avons trois branches principales et nous faisons une revue de code à chaque fois qu'il y a des changements à fusionner dans la branche master :</h3>
+    <ul>
+        <li><b>**master** :</b>Cette branche représente la version principale de notre projet. C'est là que nous fusionnons les versions compilées et testées de nos branches de développement.</li>
+        <li><b> **feature-DataFrame** :</b>Cette branche est dédiée au développement de fonctionnalités spécifiques, en l'occurrence celles liées au DataFrame dans notre projet. Les nouvelles fonctionnalités sont développées et testées dans cette branche avant d'être fusionnées dans la branche principale (master).</li>
+        <li><b>**testing** :</b>Cette branche est utilisée pour développer des tests supplémentaires et garantir la qualité du code avant de fusionner les modifications dans la branche principale (master).</li>
+    </ul>
+    <br>
+<h4>Nous avons configuré deux pipelines distinctes utilisant GitHub CI/CD Actions pour garantir le bon fonctionnement de notre code :</h4>
+1. Pipeline pour la branche master (maven.yaml) : Activée à chaque push ou pull request sur la branche master pour garantir la stabilité du code avant la fusion.
+<br>
+2. Pipeline pour la branche feature-DataFrame (feature.yaml): Déclenchée à chaque push sur la branche feature-DataFrame pour valider spécifiquement les modifications faites et les testés.
+
+
+</body>
