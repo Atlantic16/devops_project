@@ -69,6 +69,17 @@ public class DFelementTest {
         assertEquals(1, (int) elem.geti(0));
         assertEquals(3, (int) elem.geti(2));
         assertEquals("Hello",str.geti(0));
-        assertNull(elem.geti(4));
+        assertTrue(elem.geti(4) == null);
+        assertTrue(elem.geti(-1) == null);
+    }
+
+    @Test
+    public void cloneTest(){
+        DFelement clone = str.clone();
+        assertEquals(str.getLabel(), clone.getLabel());
+        assertEquals(str.getValue(), clone.getValue());
+        clone = integer.clone();
+        assertEquals(integer.getLabel(), clone.getLabel());
+        assertEquals(integer.getValue(), clone.getValue());
     }
 }
