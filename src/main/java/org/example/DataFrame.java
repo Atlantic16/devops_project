@@ -17,7 +17,7 @@ public class DataFrame {
 
     /**
      * Constructor that take a DFelement array an populate the DataFrame with it.
-     * @param element
+     * @param element element to init
      */
     public DataFrame(DFelement[] element){
         map = new ArrayList<>();
@@ -66,7 +66,7 @@ public class DataFrame {
     
     /**
      * Add an element to DataFrame instance.
-     * @param element
+     * @param element element to add
      * @return void
      */
     public void add(DFelement element){
@@ -76,7 +76,7 @@ public class DataFrame {
 
     /**
      * Return the object of the key key, and drop it.
-     * @param label 
+     * @param label the label of the column to pop
      * @return res
      */
     public Object pop(String label){
@@ -136,7 +136,7 @@ public class DataFrame {
 
     /**
      * Auxiliary function, works with show() function
-     * @param elem
+     * @param elem the Object to print
      */
     private void print(DFelement elem){
         String label = elem.getLabel();
@@ -152,7 +152,6 @@ public class DataFrame {
 
     /**
      * Show DataFrame's elements
-     * @param void
      */
     public void show(){
         if(map.size() == 0) return;
@@ -203,5 +202,45 @@ public class DataFrame {
         }
 
         return m / obj.length;
+    }
+
+    /**
+     * Return the min of a column with label @label
+     * @param label label of the column to extract
+     * @return return the minimum value
+     */
+    public int min(String label){
+        Object[] obj = (Object[])getColumn(label);
+        String type = getColType(obj);
+        int min = 0;
+
+        if(type.equals("Integer")){
+           min = (Integer)obj[0];
+           for(int i = 0; i < obj.length; i++){
+                if(min > (Integer)obj[i]) min = (Integer)obj[i];
+           }
+        }
+
+        return min;
+    }
+
+    /**
+     * Return the max of a column with label @label
+     * @param label label of the column to extract
+     * @return return the maximum value
+     */
+    public int max(String label){
+        Object[] obj = (Object[])getColumn(label);
+        String type = getColType(obj);
+        int max = 0;
+
+        if(type.equals("Integer")){
+           max = (Integer)obj[0];
+           for(int i = 0; i < obj.length; i++){
+                if(max < (Integer)obj[i]) max = (Integer)obj[i];
+           }
+        }
+
+        return max;
     }
 }
