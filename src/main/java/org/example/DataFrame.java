@@ -136,9 +136,9 @@ public class DataFrame {
             longestSize = e.getSize() > longestSize ? e.getSize() : longestSize;
         }
 
-        index = longestSize - 1; //index get the last index of the largerst row
+        index = longestSize - index; //index get the last index of the largerst row
         for(DFelement e: map){ 
-            elements.add(e.geti(index));
+            elements.add(e.geti(index - 1));
         }
         return elements.toArray();
     }
@@ -170,7 +170,6 @@ public class DataFrame {
         String label = elem.getLabel();
         Object value = elem.getValue();
         
-        System.out.println(elem.geti(0).getClass());
         System.out.print(label);
         System.out.println(Arrays.toString((Object[]) value));
     }

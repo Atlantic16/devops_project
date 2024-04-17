@@ -1,2 +1,5 @@
-a,1.2,2.0,3.0,4.0
-b,dd,ww,rr,hh,ll
+name,String,N1,N2,N3,N4
+age,Double,11,22,33,44
+code,Integer,1,4,6
+val,Double,3.0,5.5,10.6
+city,String,c1,c2,c3,c4
